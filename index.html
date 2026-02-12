@@ -1,11 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Forum Educațional</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 30px;
+        }
+
+        .container {
+            margin: 20px auto;
+            width: 60%;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1a5edb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .forum {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    
+
+<h1>Forum Educațional</h1>
+<div class="container">
+
+    <!-- Nivel 1 -->
+    <button class="btn" onclick="showSection('facultate')">Facultate</button>
+    <button class="btn" onclick="showSection('liceu')">Liceu</button>
+
+    <!-- Nivel 2 - Judete -->
+    <div id="facultate" class="hidden">
+        <button class="btn" onclick="showSection('fac_cluj')">Cluj</button>
+        <button class="btn" onclick="showSection('fac_bucuresti')">București</button>
+    </div>
+
+    <div id="liceu" class="hidden">
+        <button class="btn" onclick="showSection('lic_cluj')">Cluj</button>
+        <button class="btn" onclick="showSection('lic_bucuresti')">București</button>
+    </div>
+
+    <!-- Nivel 3 - Institutii -->
+    <div id="fac_cluj" class="hidden">
+        <button class="btn" onclick="showSection('ubb')">UBB</button>
+    </div>
+
+    <div id="fac_bucuresti" class="hidden">
+        <button class="btn" onclick="showSection('unibuc')">Universitatea București</button>
+    </div>
+
+    <div id="lic_cluj" class="hidden">
+        <button class="btn" onclick="showSection('liceu_avram')">Liceul Avram Iancu</button>
+    </div>
+
+    <div id="lic_bucuresti" class="hidden">
+        <button class="btn" onclick="showSection('liceu_lazar')">Liceul Gheorghe Lazăr</button>
+    </div>
+
+    <!-- Nivel 4 - Specializari -->
+    <div id="ubb" class="hidden">
+        <button class="btn" onclick="enterForum('UBB - Informatică')">Informatică</button>
+        <button class="btn" onclick="enterForum('UBB - Drept')">Drept</button>
+    </div>
+
+    <div id="unibuc" class="hidden">
+        <button class="btn" onclick="enterForum('UniBuc - Matematică')">Matematică</button>
+    </div>
+
+    <div id="liceu_avram" class="hidden">
+        <button class="btn" onclick="enterForum('Avram Iancu - Mate-Info')">Mate-Info</button>
+    </div>
+
+    <div id="liceu_lazar" class="hidden">
+        <button class="btn" onclick="enterForum('Lazăr - Științe Sociale')">Științe Sociale</button>
+    </div>
+
+    <!-- Forum -->
+    <div id="forum" class="forum hidden">
+        <h2 id="forumTitle"></h2>
+        <p>Bine ai venit pe forum! Aici vor fi afișate discuțiile.</p>
+    </div>
+
+</div>
+
+<script>
+    function showSection(id) {
+        document.querySelectorAll('.hidden').forEach(el => {
+            if (!el.classList.contains('forum')) {
+                el.style.display = 'none';
+            }
+        });
+
+        document.getElementById(id).style.display = "block";
+    }
+
+    function enterForum(title) {
+        document.getElementById("forumTitle").innerText = title;
+        document.getElementById("forum").style.display = "block";
+    }
+</script>
+
 </body>
 </html>
