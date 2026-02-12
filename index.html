@@ -2,131 +2,167 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Forum Educațional</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            text-align: center;
-        }
-
-        h1 {
-            margin-top: 30px;
-        }
-
-        .container {
-            margin: 20px auto;
-            width: 60%;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            background-color: #2c7be5;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #1a5edb;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .forum {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduForum</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-<h1>Forum Educațional</h1>
-<div class="container">
+<div class="app-container">
+    
+    <aside class="sidebar">
+        <div class="brand">
+            <i class="fa-solid fa-book-open brand-icon"></i>
+            <span>EduForum</span>
+        </div>
 
-    <!-- Nivel 1 -->
-    <button class="btn" onclick="showSection('facultate')">Facultate</button>
-    <button class="btn" onclick="showSection('liceu')">Liceu</button>
+        <nav class="menu">
+            <a href="#" class="menu-item active" onclick="resetHome()">
+                <i class="fa-solid fa-house"></i> Acasă
+            </a>
 
-    <!-- Nivel 2 - Judete -->
-    <div id="facultate" class="hidden">
-        <button class="btn" onclick="showSection('fac_cluj')">Cluj</button>
-        <button class="btn" onclick="showSection('fac_bucuresti')">București</button>
-    </div>
+            <div class="menu-label">CATEGORII EDUCAȚIONALE</div>
 
-    <div id="liceu" class="hidden">
-        <button class="btn" onclick="showSection('lic_cluj')">Cluj</button>
-        <button class="btn" onclick="showSection('lic_bucuresti')">București</button>
-    </div>
+            <div class="nav-group">
+                <button class="menu-item dropdown-btn" onclick="toggleMenu('menu-facultate', this)">
+                    <span><i class="fa-solid fa-graduation-cap"></i> Facultate</span>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </button>
+                
+                <div id="menu-facultate" class="submenu hidden">
+                    
+                    <div class="sub-group">
+                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('fac-cluj', this)">
+                            Cluj <i class="fa-solid fa-chevron-right arrow-small"></i>
+                        </button>
+                        <div id="fac-cluj" class="submenu deep-menu hidden">
+                            <a href="#" class="deep-item" onclick="loadForum('UBB Cluj', 'Discuții despre admiteri, sesiuni și profesori la UBB.')">UBB</a>
+                            <a href="#" class="deep-item" onclick="loadForum('UTCN Cluj', 'Totul despre Politehnică.')">UTCN</a>
+                        </div>
+                    </div>
 
-    <!-- Nivel 3 - Institutii -->
-    <div id="fac_cluj" class="hidden">
-        <button class="btn" onclick="showSection('ubb')">UBB</button>
-    </div>
+                    <div class="sub-group">
+                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('fac-bucuresti', this)">
+                            București <i class="fa-solid fa-chevron-right arrow-small"></i>
+                        </button>
+                        <div id="fac-bucuresti" class="submenu deep-menu hidden">
+                            <a href="#" class="deep-item" onclick="loadForum('UniBuc', 'Universitatea din București.')">UniBuc</a>
+                            <a href="#" class="deep-item" onclick="loadForum('Politehnica Buc', 'UPB - Facultăți și specializări.')">Politehnica</a>
+                        </div>
+                    </div>
 
-    <div id="fac_bucuresti" class="hidden">
-        <button class="btn" onclick="showSection('unibuc')">Universitatea București</button>
-    </div>
+                </div>
+            </div>
 
-    <div id="lic_cluj" class="hidden">
-        <button class="btn" onclick="showSection('liceu_avram')">Liceul Avram Iancu</button>
-    </div>
+            <div class="nav-group">
+                <button class="menu-item dropdown-btn" onclick="toggleMenu('menu-liceu', this)">
+                    <span><i class="fa-solid fa-school"></i> Liceu</span>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </button>
 
-    <div id="lic_bucuresti" class="hidden">
-        <button class="btn" onclick="showSection('liceu_lazar')">Liceul Gheorghe Lazăr</button>
-    </div>
+                <div id="menu-liceu" class="submenu hidden">
+                    
+                    <div class="sub-group">
+                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('lic-cluj', this)">
+                            Cluj <i class="fa-solid fa-chevron-right arrow-small"></i>
+                        </button>
+                        <div id="lic-cluj" class="submenu deep-menu hidden">
+                            <a href="#" class="deep-item" onclick="loadForum('Lic. Avram Iancu', 'Discuții elevi Avram Iancu.')">Avram Iancu</a>
+                            <a href="#" class="deep-item" onclick="loadForum('Lic. Racoviță', 'Colegiul Național Emil Racoviță.')">Racoviță</a>
+                        </div>
+                    </div>
 
-    <!-- Nivel 4 - Specializari -->
-    <div id="ubb" class="hidden">
-        <button class="btn" onclick="enterForum('UBB - Informatică')">Informatică</button>
-        <button class="btn" onclick="enterForum('UBB - Drept')">Drept</button>
-    </div>
+                    <div class="sub-group">
+                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('lic-bucuresti', this)">
+                            București <i class="fa-solid fa-chevron-right arrow-small"></i>
+                        </button>
+                        <div id="lic-bucuresti" class="submenu deep-menu hidden">
+                            <a href="#" class="deep-item" onclick="loadForum('Lic. Gh. Lazăr', 'Colegiul Național Gheorghe Lazăr.')">Gh. Lazăr</a>
+                            <a href="#" class="deep-item" onclick="loadForum('Lic. Sava', 'Colegiul Național Sfântul Sava.')">Sf. Sava</a>
+                        </div>
+                    </div>
 
-    <div id="unibuc" class="hidden">
-        <button class="btn" onclick="enterForum('UniBuc - Matematică')">Matematică</button>
-    </div>
+                </div>
+            </div>
 
-    <div id="liceu_avram" class="hidden">
-        <button class="btn" onclick="enterForum('Avram Iancu - Mate-Info')">Mate-Info</button>
-    </div>
+        </nav>
 
-    <div id="liceu_lazar" class="hidden">
-        <button class="btn" onclick="enterForum('Lazăr - Științe Sociale')">Științe Sociale</button>
-    </div>
+        <div class="sidebar-footer">
+            <button class="btn-signin">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> <a href="signin.html" class="signin">Sign In</a>
+            </button>
+        </div>
+    </aside>
 
-    <!-- Forum -->
-    <div id="forum" class="forum hidden">
-        <h2 id="forumTitle"></h2>
-        <p>Bine ai venit pe forum! Aici vor fi afișate discuțiile.</p>
-    </div>
+    <main class="main-content">
+        
+        <div id="welcome-screen" class="welcome-container">
+            <div class="welcome-box">
+                <h1>Bine ai venit pe EduForum</h1>
+                <p>Folosește meniul din stânga pentru a naviga către instituția dorită.</p>
+                <div class="instruction-arrow">
+                    <i class="fa-solid fa-arrow-left"></i> Alege o categorie
+                </div>
+            </div>
+        </div>
 
+        <div id="forum-view" class="hidden fade-in">
+            <header class="forum-header">
+                <h2 id="forum-title">Titlu Forum</h2>
+                <p id="forum-desc" class="subtitle">Descriere forum.</p>
+            </header>
+
+            <div class="empty-state-card">
+                <i class="fa-regular fa-comments empty-icon"></i>
+                <h3>Nu există discuții încă</h3>
+                <p>Fii primul care postează aici!</p>
+                <button class="btn-new-topic">Începe o discuție nouă</button>
+            </div>
+        </div>
+
+    </main>
 </div>
 
 <script>
-    function showSection(id) {
-        document.querySelectorAll('.hidden').forEach(el => {
-            if (!el.classList.contains('forum')) {
-                el.style.display = 'none';
-            }
-        });
-
-        document.getElementById(id).style.display = "block";
+    // 1. Funcția pentru a deschide/închide meniurile din Sidebar
+    function toggleMenu(menuId, btnElement) {
+        // Găsim submeniul
+        const menu = document.getElementById(menuId);
+        
+        // Comutăm vizibilitatea
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            btnElement.classList.add('open'); // Pentru rotirea săgeții
+        } else {
+            menu.classList.add('hidden');
+            btnElement.classList.remove('open');
+        }
     }
 
-    function enterForum(title) {
-        document.getElementById("forumTitle").innerText = title;
-        document.getElementById("forum").style.display = "block";
+    // 2. Funcția care încarcă forumul în dreapta
+    function loadForum(title, description) {
+        // Ascundem ecranul de bun venit
+        document.getElementById('welcome-screen').style.display = 'none';
+        
+        // Afișăm zona de forum
+        const forumView = document.getElementById('forum-view');
+        forumView.classList.remove('hidden');
+
+        // Setăm titlurile
+        document.getElementById('forum-title').innerText = title;
+        document.getElementById('forum-desc').innerText = description;
+
+        // Marcare vizuală link activ (opțional)
+        document.querySelectorAll('.deep-item').forEach(i => i.style.color = '#64748b');
+        event.target.style.color = '#2563eb'; // Albastru pentru cel activ
+    }
+
+    // 3. Resetare la Acasă
+    function resetHome() {
+        document.getElementById('welcome-screen').style.display = 'flex';
+        document.getElementById('forum-view').classList.add('hidden');
     }
 </script>
 

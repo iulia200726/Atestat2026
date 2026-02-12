@@ -1,0 +1,119 @@
+/* Resetare */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Layout */
+.app-container { display: flex; height: 100vh; }
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 280px; /* Puțin mai lat pentru a încăpea ierarhia */
+    background-color: #fff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto; /* Scroll în meniu dacă sunt multe licee */
+}
+
+.brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Merriweather', serif; font-size: 20px; font-weight: 700;
+    color: #1e293b; margin-bottom: 30px;
+}
+.brand-icon { background: #1e293b; color: white; padding: 8px; border-radius: 6px; }
+
+.menu-label {
+    font-size: 11px; text-transform: uppercase; color: #94a3b8;
+    letter-spacing: 1px; margin: 20px 0 10px 0; font-weight: 600;
+}
+
+/* Stiluri Butoane Meniu */
+.menu-item, .submenu-item, .deep-item {
+    width: 100%; text-align: left; background: none; border: none;
+    cursor: pointer; padding: 10px; border-radius: 6px;
+    color: #475569; font-size: 14px; font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.2s; text-decoration: none;
+}
+
+.menu-item:hover, .submenu-item:hover, .deep-item:hover {
+    background-color: #f1f5f9; color: #0f172a;
+}
+
+/* Nivel 1 (Facultate/Liceu) */
+.menu-item { font-weight: 600; color: #334155; }
+.menu-item span { display: flex; align-items: center; gap: 10px; }
+
+/* Nivel 2 (Județe) - Indentare */
+.submenu-item {
+    padding-left: 42px; /* Indentare față de margine */
+    font-weight: 500;
+}
+
+/* Nivel 3 (Instituții) - Indentare mare */
+.deep-item {
+    padding-left: 60px;
+    font-size: 13px;
+    color: #64748b;
+    display: block; /* Link simplu */
+}
+
+/* Săgeți și Animații */
+.arrow, .arrow-small { font-size: 10px; transition: transform 0.3s; }
+.dropdown-btn.open .arrow { transform: rotate(90deg); }
+.dropdown-btn.open .arrow-small { transform: rotate(90deg); }
+
+.hidden { display: none; }
+
+/* Footer Sidebar */
+.sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid #f1f5f9; }
+.btn-signin {
+    width: 100%; background-color: #1e293b; color: white; border: none;
+    padding: 10px; border-radius: 6px; cursor: pointer;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    flex-grow: 1; padding: 40px; overflow-y: auto;
+    background-color: #f9fafb;
+    position: relative;
+}
+
+/* Welcome Screen */
+.welcome-container {
+    height: 100%; display: flex; justify-content: center; align-items: center; text-align: center;
+}
+.welcome-box h1 { font-family: 'Merriweather', serif; color: #1e293b; margin-bottom: 10px; }
+.instruction-arrow { margin-top: 20px; color: #3b82f6; font-weight: 500; }
+
+/* Forum View */
+.forum-header { margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
+.forum-header h2 { font-family: 'Merriweather', serif; font-size: 28px; color: #1e293b; }
+
+.empty-state-card {
+    background: white; border: 1px dashed #cbd5e1; border-radius: 12px;
+    padding: 50px; text-align: center;
+}
+.empty-icon { font-size: 40px; color: #94a3b8; margin-bottom: 20px; }
+.btn-new-topic {
+    margin-top: 20px; background-color: #2563eb; color: white; border: none;
+    padding: 10px 20px; border-radius: 6px; cursor: pointer;
+    font-weight: 500; transition: background 0.2s;
+}
+.btn-new-topic:hover { background-color: #1d4ed8; }
+
+.fade-in { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+.signin {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
