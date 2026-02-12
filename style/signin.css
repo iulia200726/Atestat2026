@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.auth-body {
+    background-color: #f1f5f9;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+    transition: padding 0.3s ease; 
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.brand-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.brand-icon {
+    background: #1e293b;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+.auth-header h2 {
+    font-family: 'Merriweather', serif;
+    color: #1e293b;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.auth-card input[type="text"],
+.auth-card input[type="password"],
+.auth-card input[type="email"] {
+    width: 100%;
+    box-sizing: border-box; 
+    padding: 12px 12px 12px 40px; 
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-card input:focus {
+    outline: none;
+    border-color: #1e293b;
+    box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+.remember-me {
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 12px;
+    background-color: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-auth:hover {
+    background-color: #0f172a;
+}
+
+.auth-footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: #64748b;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 20px;
+}
+
+.auth-footer a {
+    color: #1e293b;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+}
+
+/* --- MEDIA QUERIES (RESPONSIVE) --- */
+
+/* Pentru tablete si telefoane (ecrane sub 600px) */
+@media screen and (max-width: 600px) {
+    
+    .auth-body {
+        align-items: flex-start; 
+        padding-top: 40px;
+        height: auto; 
+    }
+
+    .auth-card {
+        padding: 25px 20px;
+        max-width: 100%;
+    }
+
+    .auth-header h2 {
+        font-size: 20px; 
+    }
+
+    .brand-center {
+        font-size: 18px; 
+        margin-bottom: 15px;
+    }
+
+    .brand-icon {
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    .auth-card input[type="text"],
+    .auth-card input[type="password"],
+    .auth-card input[type="email"] {
+        font-size: 16px; 
+        padding: 10px 10px 10px 35px;
+    }
+    
+    .input-icon {
+        font-size: 13px;
+    }
+}

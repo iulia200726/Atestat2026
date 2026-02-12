@@ -2,82 +2,118 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up - Forum Educațional</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #11998e, #38ef7d);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #11998e;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background: #0d7f74;
-        }
-
-        .link {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .link a {
-            color: #11998e;
-            text-decoration: none;
-        }
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Înregistrare - EduForum</title>
+    <link rel="stylesheet" href="style/signup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="auth-body">
 
-<div class="container">
-    <h2>Sign Up</h2>
-    <form>
-        <input type="text" placeholder="Username" required>
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Parolă" required>
-        <input type="password" placeholder="Confirmă parola" required>
-        <button type="submit">Creează cont</button>
-    </form>
+<div class="auth-container">
+    <div class="auth-card fade-in">
+        <div class="auth-header">
+            <div class="brand brand-center">
+                <i class="fa-solid fa-book-open brand-icon"></i>
+                <span>EduForum</span>
+            </div>
+            <h2>Creează un cont</h2>
+            <p class="subtitle">Alătură-te comunității noastre educaționale.</p>
+        </div>
 
-    <div class="link">
-        Ai deja cont? <a href="signin.html">Autentifică-te</a>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="username">Nume de utilizator</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="signup-username" placeholder="AlexPopescu" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Adresă de Email</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" id="signup-email" placeholder="nume@exemplu.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Parolă</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="signup-password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirmă Parola</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-check-double input-icon"></i>
+                    <input type="password" id="confirm-password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-auth">Creează cont</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Ai deja cont? <a href="signin.html">Autentifică-te aici</a></p>
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Înapoi la site</a>
+        </div>
     </div>
 </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  const firebaseConfig = {
+     apiKey: "AIzaSyCQ510Na-8j5gkMeYMQ44lmaZ_cQqL2zdY",
+  authDomain: "eduforum-91a0d.firebaseapp.com",
+  projectId: "eduforum-91a0d",
+  storageBucket: "eduforum-91a0d.firebasestorage.app",
+  messagingSenderId: "100840747202",
+  appId: "1:100840747202:web:6bc78873ed5c7325bd8b5b",
+  measurementId: "G-M85WD4TEK3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const signupForm = document.getElementById('signup-form');
+
+  signupForm.addEventListener('submit', (e) => {
+      e.preventDefault(); 
+
+      const username = document.getElementById('signup-username').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if(password !== confirmPassword) {
+          alert("Parolele nu coincid!");
+          return;
+      }
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            
+            updateProfile(user, {
+                displayName: username
+            }).then(() => {
+                alert("Cont creat cu succes! Te redirecționăm...");
+                window.location.href = "index.html"; 
+            });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("Eroare: " + errorMessage);
+        });
+  });
+</script>
 
 </body>
 </html>

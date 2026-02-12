@@ -1,5 +1,9 @@
-/* Resetare */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f9fafb;
@@ -8,112 +12,490 @@ body {
     overflow: hidden;
 }
 
-/* Layout */
-.app-container { display: flex; height: 100vh; }
+.app-container {
+    display: flex;
+    height: 100vh;
+}
 
-/* --- SIDEBAR --- */
 .sidebar {
-    width: 280px; /* Puțin mai lat pentru a încăpea ierarhia */
+    width: 280px;
     background-color: #fff;
     border-right: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    overflow-y: auto; /* Scroll în meniu dacă sunt multe licee */
+    overflow-y: auto;
+    flex-shrink: 0;
+    transition: left 0.3s ease;
 }
 
 .brand {
-    display: flex; align-items: center; gap: 10px;
-    font-family: 'Merriweather', serif; font-size: 20px; font-weight: 700;
-    color: #1e293b; margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 30px;
 }
-.brand-icon { background: #1e293b; color: white; padding: 8px; border-radius: 6px; }
+
+.brand-icon {
+    background: #1e293b;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+}
 
 .menu-label {
-    font-size: 11px; text-transform: uppercase; color: #94a3b8;
-    letter-spacing: 1px; margin: 20px 0 10px 0; font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    margin: 20px 0 10px 0;
+    font-weight: 600;
 }
 
-/* Stiluri Butoane Meniu */
-.menu-item, .submenu-item, .deep-item {
-    width: 100%; text-align: left; background: none; border: none;
-    cursor: pointer; padding: 10px; border-radius: 6px;
-    color: #475569; font-size: 14px; font-family: 'Inter', sans-serif;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: all 0.2s; text-decoration: none;
+.menu-item {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border-radius: 6px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
 }
 
-.menu-item:hover, .submenu-item:hover, .deep-item:hover {
-    background-color: #f1f5f9; color: #0f172a;
+.menu-item.active, .menu-item:hover:not(.static) {
+    background-color: #f1f5f9;
+    color: #0f172a;
 }
 
-/* Nivel 1 (Facultate/Liceu) */
-.menu-item { font-weight: 600; color: #334155; }
-.menu-item span { display: flex; align-items: center; gap: 10px; }
-
-/* Nivel 2 (Județe) - Indentare */
-.submenu-item {
-    padding-left: 42px; /* Indentare față de margine */
-    font-weight: 500;
+.menu-item.static {
+    cursor: default;
 }
 
-/* Nivel 3 (Instituții) - Indentare mare */
+.county-select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #f8fafc;
+    color: #334155;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.county-select:focus {
+    border-color: #3b82f6;
+}
+
+.school-list-container {
+    padding-left: 10px;
+    border-left: 2px solid #e2e8f0;
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+
 .deep-item {
-    padding-left: 60px;
-    font-size: 13px;
+    display: block;
+    padding: 6px 0;
     color: #64748b;
-    display: block; /* Link simplu */
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
-/* Săgeți și Animații */
-.arrow, .arrow-small { font-size: 10px; transition: transform 0.3s; }
-.dropdown-btn.open .arrow { transform: rotate(90deg); }
-.dropdown-btn.open .arrow-small { transform: rotate(90deg); }
+.deep-item:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
 
-.hidden { display: none; }
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
 
-/* Footer Sidebar */
-.sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid #f1f5f9; }
+.signin-link-wrapper {
+    text-decoration: none;
+}
+
 .btn-signin {
-    width: 100%; background-color: #1e293b; color: white; border: none;
-    padding: 10px; border-radius: 6px; cursor: pointer;
+    width: 100%;
+    background-color: #1e293b;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
 }
 
-/* --- MAIN CONTENT --- */
+.btn-signin:hover {
+    background-color: #0f172a;
+}
+
 .main-content {
-    flex-grow: 1; padding: 40px; overflow-y: auto;
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
     background-color: #f9fafb;
     position: relative;
 }
 
-/* Welcome Screen */
 .welcome-container {
-    height: 100%; display: flex; justify-content: center; align-items: center; text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
-.welcome-box h1 { font-family: 'Merriweather', serif; color: #1e293b; margin-bottom: 10px; }
-.instruction-arrow { margin-top: 20px; color: #3b82f6; font-weight: 500; }
 
-/* Forum View */
-.forum-header { margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }
-.forum-header h2 { font-family: 'Merriweather', serif; font-size: 28px; color: #1e293b; }
+.welcome-box h1 {
+    font-family: 'Merriweather', serif;
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.instruction-arrow {
+    margin-top: 20px;
+    color: #3b82f6;
+    font-weight: 500;
+}
+
+.forum-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 20px;
+}
+
+.forum-header h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 28px;
+    color: #1e293b;
+}
 
 .empty-state-card {
-    background: white; border: 1px dashed #cbd5e1; border-radius: 12px;
-    padding: 50px; text-align: center;
+    background: white;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 50px;
+    text-align: center;
 }
-.empty-icon { font-size: 40px; color: #94a3b8; margin-bottom: 20px; }
+
+.empty-icon {
+    font-size: 40px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
 .btn-new-topic {
-    margin-top: 20px; background-color: #2563eb; color: white; border: none;
-    padding: 10px 20px; border-radius: 6px; cursor: pointer;
-    font-weight: 500; transition: background 0.2s;
+    margin-top: 20px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
 }
-.btn-new-topic:hover { background-color: #1d4ed8; }
+
+.btn-new-topic:hover {
+    background-color: #1d4ed8;
+}
+
+.hidden { display: none !important; }
 
 .fade-in { animation: fadeIn 0.4s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-.signin {
+/* --- RESPONSIVE --- */
+
+.menu-toggle, .sidebar-overlay {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001;
+        background-color: #1e293b;
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .main-content {
+        padding: 60px 20px 20px 20px; 
+    }
+
+    .welcome-box h1 {
+        font-size: 24px;
+    }
+}
+
+.forum-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-add-post {
+    background-color: #2563eb;
     color: white;
-    text-decoration: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add-post:hover { background-color: #1d4ed8; }
+
+.create-post-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.create-post-container input, 
+.create-post-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+}
+
+.create-post-container textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-cancel {
+    background: #e2e8f0;
+    color: #334155;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.post-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.1s;
+}
+
+.post-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+}
+
+.post-meta {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.post-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 5px;
+}
+
+.post-snippet {
+    font-size: 14px;
+    color: #475569;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.post-detail-view {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.post-detail-header {
+    padding: 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    margin-bottom: 10px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-back:hover { color: #2563eb; }
+
+.full-post-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin-top: 15px;
+    white-space: pre-wrap; 
+}
+
+.comments-section {
+    background-color: #f8fafc;
+    padding: 20px;
+}
+
+.add-comment-box {
+    margin-bottom: 20px;
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comment-item {
+    background: white;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.comment-author {
+    font-weight: 600;
+    font-size: 13px;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: #475569;
+}
+
+.date-text {
+    color: #94a3b8;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+#new-comment-text {
+    width: 100%;               
+    box-sizing: border-box;    
+    min-height: 80px;          
+    
+    padding: 15px;             
+    border: 1px solid #e2e8f0; 
+    border-radius: 8px;       
+    background-color: #f8fafc; 
+    
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #334155;
+    
+    resize: vertical;          
+    outline: none;             
+    transition: all 0.2s ease; 
+}
+
+#new-comment-text:focus {
+    background-color: #ffffff; 
+    border-color: #3b82f6;    
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+}
+
+#new-comment-text::placeholder {
+    color: #94a3b8;           
+    font-weight: 400;       
+    font-size: 14px;            
+    opacity: 1;                
 }

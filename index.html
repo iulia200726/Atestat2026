@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduForum</title>
+    <title>EduForum - Acasă</title>
     <link rel="stylesheet" href="style/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
+<button class="menu-toggle" onclick="toggleMobileMenu()">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
 
 <div class="app-container">
     
@@ -19,6 +25,11 @@
         </div>
 
         <nav class="menu">
+            <div id="user-info" style="display: none; padding: 0 10px 20px 10px; font-size: 13px; color: #64748b;">
+                Conectat ca: <br>
+                <span id="user-email" style="font-weight: 600; color: #1e293b;"></span>
+            </div>
+
             <a href="#" class="menu-item active" onclick="resetHome()">
                 <i class="fa-solid fa-house"></i> Acasă
             </a>
@@ -26,72 +37,31 @@
             <div class="menu-label">CATEGORII EDUCAȚIONALE</div>
 
             <div class="nav-group">
-                <button class="menu-item dropdown-btn" onclick="toggleMenu('menu-facultate', this)">
+                <div class="menu-item static">
                     <span><i class="fa-solid fa-graduation-cap"></i> Facultate</span>
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-                </button>
-                
-                <div id="menu-facultate" class="submenu hidden">
-                    
-                    <div class="sub-group">
-                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('fac-cluj', this)">
-                            Cluj <i class="fa-solid fa-chevron-right arrow-small"></i>
-                        </button>
-                        <div id="fac-cluj" class="submenu deep-menu hidden">
-                            <a href="#" class="deep-item" onclick="loadForum('UBB Cluj', 'Discuții despre admiteri, sesiuni și profesori la UBB.')">UBB</a>
-                            <a href="#" class="deep-item" onclick="loadForum('UTCN Cluj', 'Totul despre Politehnică.')">UTCN</a>
-                        </div>
-                    </div>
-
-                    <div class="sub-group">
-                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('fac-bucuresti', this)">
-                            București <i class="fa-solid fa-chevron-right arrow-small"></i>
-                        </button>
-                        <div id="fac-bucuresti" class="submenu deep-menu hidden">
-                            <a href="#" class="deep-item" onclick="loadForum('UniBuc', 'Universitatea din București.')">UniBuc</a>
-                            <a href="#" class="deep-item" onclick="loadForum('Politehnica Buc', 'UPB - Facultăți și specializări.')">Politehnica</a>
-                        </div>
-                    </div>
-
                 </div>
+                <div id="container-facultati" class="submenu-container"></div>
             </div>
 
             <div class="nav-group">
-                <button class="menu-item dropdown-btn" onclick="toggleMenu('menu-liceu', this)">
+                <div class="menu-item static">
                     <span><i class="fa-solid fa-school"></i> Liceu</span>
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-                </button>
-
-                <div id="menu-liceu" class="submenu hidden">
-                    
-                    <div class="sub-group">
-                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('lic-cluj', this)">
-                            Cluj <i class="fa-solid fa-chevron-right arrow-small"></i>
-                        </button>
-                        <div id="lic-cluj" class="submenu deep-menu hidden">
-                            <a href="#" class="deep-item" onclick="loadForum('Lic. Avram Iancu', 'Discuții elevi Avram Iancu.')">Avram Iancu</a>
-                            <a href="#" class="deep-item" onclick="loadForum('Lic. Racoviță', 'Colegiul Național Emil Racoviță.')">Racoviță</a>
-                        </div>
-                    </div>
-
-                    <div class="sub-group">
-                        <button class="submenu-item dropdown-btn" onclick="toggleMenu('lic-bucuresti', this)">
-                            București <i class="fa-solid fa-chevron-right arrow-small"></i>
-                        </button>
-                        <div id="lic-bucuresti" class="submenu deep-menu hidden">
-                            <a href="#" class="deep-item" onclick="loadForum('Lic. Gh. Lazăr', 'Colegiul Național Gheorghe Lazăr.')">Gh. Lazăr</a>
-                            <a href="#" class="deep-item" onclick="loadForum('Lic. Sava', 'Colegiul Național Sfântul Sava.')">Sf. Sava</a>
-                        </div>
-                    </div>
-
                 </div>
+                <div id="container-licee" class="submenu-container"></div>
             </div>
-
         </nav>
 
         <div class="sidebar-footer">
-            <button class="btn-signin">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i> <a href="signin.html" class="signin">Sign In</a>
+            <a href="signin.html" id="link-signin" class="signin-link-wrapper">
+                <button class="btn-signin">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> 
+                    Sign In
+                </button>
+            </a>
+
+            <button id="btn-logout" class="btn-signin" style="display: none; background-color: #ef4444; margin-top: 10px;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> 
+                Deconectare
             </button>
         </div>
     </aside>
@@ -101,9 +71,9 @@
         <div id="welcome-screen" class="welcome-container">
             <div class="welcome-box">
                 <h1>Bine ai venit pe EduForum</h1>
-                <p>Folosește meniul din stânga pentru a naviga către instituția dorită.</p>
+                <p>Selectează județul și instituția din meniul lateral pentru a vedea discuțiile.</p>
                 <div class="instruction-arrow">
-                    <i class="fa-solid fa-arrow-left"></i> Alege o categorie
+                    <i class="fa-solid fa-arrow-left"></i> Începe din meniu
                 </div>
             </div>
         </div>
@@ -114,56 +84,333 @@
                 <p id="forum-desc" class="subtitle">Descriere forum.</p>
             </header>
 
-            <div class="empty-state-card">
-                <i class="fa-regular fa-comments empty-icon"></i>
-                <h3>Nu există discuții încă</h3>
-                <p>Fii primul care postează aici!</p>
-                <button class="btn-new-topic">Începe o discuție nouă</button>
+            <div id="posts-list-container">
+                <div class="forum-controls">
+                    <h3 style="font-size: 18px;">Discuții</h3>
+                    <button id="btn-show-create" class="btn-add-post">
+                        <i class="fa-solid fa-plus"></i> Discuție Nouă
+                    </button>
+                </div>
+
+                <div id="create-post-form" class="create-post-container hidden">
+                    <h4>Începe o discuție nouă</h4>
+                    <input type="text" id="new-post-title" placeholder="Titlu sugestiv (ex: Când începe sesiunea?)" />
+                    <textarea id="new-post-content" placeholder="Scrie detaliile aici..."></textarea>
+                    <div class="form-actions">
+                        <button id="btn-cancel-post" class="btn-cancel">Anulează</button>
+                        <button id="btn-submit-post" class="btn-add-post">Publică</button>
+                    </div>
+                </div>
+
+                <div id="posts-feed">
+                    <p style="color: #94a3b8;">Se încarcă discuțiile...</p>
+                </div>
             </div>
+
+            <div id="post-detail-container" class="hidden">
+                <button id="btn-back-to-list" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Înapoi la discuții
+                </button>
+
+                <div class="post-detail-view">
+                    <div class="post-detail-header">
+                        <div class="post-meta">
+                            Postat de <span id="detail-author" style="font-weight: bold;">User</span> • <span id="detail-date">Acum</span>
+                        </div>
+                        <h1 id="detail-title" class="post-title" style="font-size: 24px;">Titlu Postare</h1>
+                        <div id="detail-content" class="full-post-content">
+                            Conținutul detaliat va apărea aici.
+                        </div>
+                    </div>
+
+                    <div class="comments-section">
+                        <h4>Comentarii</h4>
+                        
+                        <div class="add-comment-box">
+                            <textarea id="new-comment-text" class="create-post-container textarea" style="height: 60px; margin-bottom: 5px;" placeholder="Adaugă un comentariu..."></textarea>
+                            <div style="text-align: right;">
+                                <button id="btn-submit-comment" class="btn-add-post" style="font-size: 13px; padding: 6px 12px; display: inline-flex;">
+                                    Comentează
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="comments-feed" class="comment-list">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </main>
 </div>
 
 <script>
-    // 1. Funcția pentru a deschide/închide meniurile din Sidebar
-    function toggleMenu(menuId, btnElement) {
-        // Găsim submeniul
-        const menu = document.getElementById(menuId);
-        
-        // Comutăm vizibilitatea
-        if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
-            btnElement.classList.add('open'); // Pentru rotirea săgeții
-        } else {
-            menu.classList.add('hidden');
-            btnElement.classList.remove('open');
-        }
+    const dateEducationale = {
+        "București": { facultati: ["Universitatea din București", "Politehnica București", "ASE", "UMF Carol Davila"], licee: ["CN Gheorghe Lazăr", "CN Sfântul Sava", "Liceul Tudor Vianu", "CN Mihai Viteazul"] },
+        "Cluj": { facultati: ["UBB Cluj-Napoca", "UTCN (Politehnică)", "UMF Iuliu Hațieganu", "USAMV"], licee: ["Liceul Avram Iancu", "CN Emil Racoviță", "Liceul Nicolae Bălcescu", "Liceul de Informatică"] },
+        "Iași": { facultati: ["UAIC (Cuza)", "UTI (Asachi)", "UMF Gr. T. Popa"], licee: ["CN Costache Negruzzi", "CN Emil Racoviță", "Liceul Național"] },
+        "Timiș": { facultati: ["Politehnica Timișoara", "Universitatea de Vest"], licee: ["Liceul Grigore Moisil", "CD Loga", "CN Bănățean", "Colegiul Național Ana Aslan"] },
+        "Brașov": { facultati: ["Universitatea Transilvania"], licee: ["CN Andrei Șaguna", "CN Dr. Ioan Meșotă"] }
+    };
+    const listaJudete = Object.keys(dateEducationale);
+
+    window.currentCategory = "";
+
+    function initializeazaMeniul() {
+        creeazaSelectorJudet(document.getElementById('container-facultati'), 'facultati');
+        creeazaSelectorJudet(document.getElementById('container-licee'), 'licee');
     }
 
-    // 2. Funcția care încarcă forumul în dreapta
-    function loadForum(title, description) {
-        // Ascundem ecranul de bun venit
+    function creeazaSelectorJudet(container, tip) {
+        const select = document.createElement('select');
+        select.className = 'county-select';
+        select.innerHTML = '<option value="">Alege județul...</option>';
+        listaJudete.sort().forEach(j => select.innerHTML += `<option value="${j}">${j}</option>`);
+
+        const schoolsContainer = document.createElement('div');
+        schoolsContainer.className = 'school-list-container hidden';
+
+        select.addEventListener('change', function() {
+            const judet = this.value;
+            schoolsContainer.innerHTML = '';
+            if (judet) {
+                schoolsContainer.classList.remove('hidden');
+                (dateEducationale[judet][tip] || []).forEach(inst => {
+                    const link = document.createElement('a');
+                    link.href = "#"; link.className = 'deep-item'; link.innerText = inst;
+                    link.onclick = () => { 
+                        window.currentCategory = `${inst} (${judet})`;
+                        openForumView(window.currentCategory, `Discuții oficiale pentru ${inst}.`);
+                        if(window.innerWidth < 768) toggleMobileMenu();
+                    };
+                    schoolsContainer.appendChild(link);
+                });
+            } else { schoolsContainer.classList.add('hidden'); }
+        });
+        container.appendChild(select); container.appendChild(schoolsContainer);
+    }
+
+    function openForumView(title, desc) {
         document.getElementById('welcome-screen').style.display = 'none';
-        
-        // Afișăm zona de forum
-        const forumView = document.getElementById('forum-view');
-        forumView.classList.remove('hidden');
-
-        // Setăm titlurile
+        document.getElementById('forum-view').classList.remove('hidden');
         document.getElementById('forum-title').innerText = title;
-        document.getElementById('forum-desc').innerText = description;
+        document.getElementById('forum-desc').innerText = desc;
+        
+        document.getElementById('posts-list-container').classList.remove('hidden');
+        document.getElementById('post-detail-container').classList.add('hidden');
+        document.getElementById('create-post-form').classList.add('hidden');
 
-        // Marcare vizuală link activ (opțional)
-        document.querySelectorAll('.deep-item').forEach(i => i.style.color = '#64748b');
-        event.target.style.color = '#2563eb'; // Albastru pentru cel activ
+        const event = new CustomEvent('categoryChanged', { detail: { category: title } });
+        document.dispatchEvent(event);
     }
 
-    // 3. Resetare la Acasă
     function resetHome() {
         document.getElementById('welcome-screen').style.display = 'flex';
         document.getElementById('forum-view').classList.add('hidden');
+        if(window.innerWidth < 768) toggleMobileMenu();
     }
+    function toggleMobileMenu() {
+        document.querySelector('.sidebar').classList.toggle('active');
+        document.querySelector('.sidebar-overlay').classList.toggle('active');
+    }
+    window.onload = initializeazaMeniul;
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, Timestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCQ510Na-8j5gkMeYMQ44lmaZ_cQqL2zdY",
+  authDomain: "eduforum-91a0d.firebaseapp.com",
+  projectId: "eduforum-91a0d",
+  storageBucket: "eduforum-91a0d.firebasestorage.app",
+  messagingSenderId: "100840747202",
+  appId: "1:100840747202:web:6bc78873ed5c7325bd8b5b",
+  measurementId: "G-M85WD4TEK3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let currentPostId = null;
+
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        if (user) {
+            document.getElementById('link-signin').style.display = 'none';
+            document.getElementById('btn-logout').style.display = 'flex';
+            document.getElementById('user-info').style.display = 'block';
+            document.getElementById('user-email').innerText = user.displayName || user.email;
+        } else {
+            document.getElementById('link-signin').style.display = 'block';
+            document.getElementById('btn-logout').style.display = 'none';
+            document.getElementById('user-info').style.display = 'none';
+        }
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', () => {
+        if(confirm("Vrei să te deconectezi?")) signOut(auth).then(() => window.location.reload());
+    });
+
+    document.addEventListener('categoryChanged', (e) => {
+        const category = e.detail.category;
+        loadPosts(category);
+    });
+
+    async function loadPosts(category) {
+        const feed = document.getElementById('posts-feed');
+        feed.innerHTML = '<p style="color:#64748b">Se încarcă discuțiile...</p>';
+
+        try {
+            const q = query(collection(db, "posts"), where("category", "==", category), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+
+            feed.innerHTML = "";
+
+            if (querySnapshot.empty) {
+                feed.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <i class="fa-regular fa-folder-open" style="font-size: 30px; color: #cbd5e1;"></i>
+                        <p style="color: #64748b; margin-top: 10px;">Nu există discuții. Fii primul care scrie!</p>
+                    </div>`;
+                return;
+            }
+
+            querySnapshot.forEach((docSnap) => {
+                const post = docSnap.data();
+                const date = post.timestamp ? new Date(post.timestamp.seconds * 1000).toLocaleDateString("ro-RO") : "Recent";
+                
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `
+                    <div class="post-meta">
+                        Postat de <b>${post.authorName}</b> • ${date}
+                    </div>
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-snippet">${post.content}</div>
+                    <div style="margin-top: 10px; font-size: 13px; color: #3b82f6;">
+                        <i class="fa-regular fa-comment"></i> Vezi comentarii
+                    </div>
+                `;
+                card.onclick = () => viewPostDetails(docSnap.id, post);
+                feed.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error("Eroare la încărcare:", error);
+            feed.innerHTML = '<p style="color: red;">Eroare la încărcarea datelor. Verifică consola.</p>';
+        }
+    }
+
+    const createForm = document.getElementById('create-post-form');
+    document.getElementById('btn-show-create').addEventListener('click', () => {
+        if(!currentUser) { alert("Trebuie să fii logat pentru a posta!"); return; }
+        createForm.classList.remove('hidden');
+    });
+
+    document.getElementById('btn-cancel-post').addEventListener('click', () => createForm.classList.add('hidden'));
+
+    document.getElementById('btn-submit-post').addEventListener('click', async () => {
+        const title = document.getElementById('new-post-title').value;
+        const content = document.getElementById('new-post-content').value;
+
+        if (!title || !content) { alert("Completează toate câmpurile!"); return; }
+
+        try {
+            await addDoc(collection(db, "posts"), {
+                category: window.currentCategory,
+                title: title,
+                content: content,
+                authorId: currentUser.uid,
+                authorName: currentUser.displayName || currentUser.email.split('@')[0],
+                timestamp: Timestamp.now()
+            });
+
+            document.getElementById('new-post-title').value = "";
+            document.getElementById('new-post-content').value = "";
+            createForm.classList.add('hidden');
+            loadPosts(window.currentCategory); 
+
+        } catch (e) {
+            console.error("Eroare la postare: ", e);
+            alert("Eroare la salvare.");
+        }
+    });
+
+    async function viewPostDetails(postId, postData) {
+        currentPostId = postId;
+        
+        document.getElementById('posts-list-container').classList.add('hidden');
+        document.getElementById('post-detail-container').classList.remove('hidden');
+
+        document.getElementById('detail-title').innerText = postData.title;
+        document.getElementById('detail-content').innerText = postData.content;
+        document.getElementById('detail-author').innerText = postData.authorName;
+        const date = postData.timestamp ? new Date(postData.timestamp.seconds * 1000).toLocaleString("ro-RO") : "";
+        document.getElementById('detail-date').innerText = date;
+
+        loadComments(postId);
+    }
+
+    document.getElementById('btn-back-to-list').addEventListener('click', () => {
+        document.getElementById('posts-list-container').classList.remove('hidden');
+        document.getElementById('post-detail-container').classList.add('hidden');
+        currentPostId = null;
+    });
+
+    async function loadComments(postId) {
+        const commentFeed = document.getElementById('comments-feed');
+        commentFeed.innerHTML = "<p>Se încarcă comentariile...</p>";
+
+        const q = query(collection(db, "posts", postId, "comments"), orderBy("timestamp", "asc"));
+        const snapshot = await getDocs(q);
+
+        commentFeed.innerHTML = "";
+        if(snapshot.empty) {
+            commentFeed.innerHTML = "<p style='font-size:13px; color:#94a3b8'>Niciun comentariu încă.</p>";
+            return;
+        }
+
+        snapshot.forEach(doc => {
+            const comm = doc.data();
+            const div = document.createElement('div');
+            div.className = 'comment-item';
+            div.innerHTML = `
+                <div class="comment-author">
+                    ${comm.authorName} 
+                    <span class="date-text">• ${comm.timestamp ? new Date(comm.timestamp.seconds * 1000).toLocaleDateString() : ''}</span>
+                </div>
+                <div class="comment-text">${comm.text}</div>
+            `;
+            commentFeed.appendChild(div);
+        });
+    }
+
+    document.getElementById('btn-submit-comment').addEventListener('click', async () => {
+        if(!currentUser) { alert("Loghează-te pentru a comenta!"); return; }
+        const text = document.getElementById('new-comment-text').value;
+        if(!text) return;
+
+        try {
+            await addDoc(collection(db, "posts", currentPostId, "comments"), {
+                text: text,
+                authorName: currentUser.displayName || currentUser.email.split('@')[0],
+                authorId: currentUser.uid,
+                timestamp: Timestamp.now()
+            });
+            document.getElementById('new-comment-text').value = "";
+            loadComments(currentPostId);
+        } catch(e) {
+            console.error("Eroare comentariu:", e);
+        }
+    });
+
 </script>
 
 </body>
